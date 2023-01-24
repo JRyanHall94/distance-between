@@ -23,6 +23,14 @@
       transform: translate(-50%, -50%);
       z-index: 1;
     }
+
+    .status {
+      position: absolute;
+      text-align: center;
+      top: 90%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
   </style>
 
   <body>
@@ -36,6 +44,8 @@
       <p id="machu-picchu">Distance from Machu Picchu:</p>
       <p id="eiffel-tower">Distance from the Eiffel Tower:</p>
       <input type="button" value="Calculate!" id="find-me" />
+    </div>
+    <div class="container status">
       <p id="status"></p>
     </div>
 
@@ -58,7 +68,6 @@
           const latitude = position.coords.latitude;
           const longitude = position.coords.longitude;
 
-          status.textContent = "";
           data = await postData("https://bdjhif.deta.dev/coords/", {
             lat: latitude,
             lng: longitude,
@@ -70,6 +79,8 @@
           for (let i = 0; i < allParas.length; i++) {
             allParas[i].textContent += ` ${data[allParas[i].id]} miles`;
           }
+
+          status.textContent = "";
         }
 
         function error() {
@@ -85,53 +96,6 @@
       }
 
       document.querySelector("#find-me").addEventListener("click", geoFindMe);
-
-      //   let distance = document.querySelector(".distance");
-      //   let allParas = distance.querySelectorAll("p");
-      //   async function myFunction() {
-      //     if (navigator.geolocation) {
-      //       navigator.geolocation.getCurrentPosition(showPosition, showError);
-      //     } else {
-      //       newP = document.createElement("p");
-      //       newP.innerHTML = "Geolocation is not supported by this browser.";
-      //       distance.append(newP);
-      //     }
-      //   }
-
-      //   async function showPosition(position) {
-      //     data = await postData("https://bdjhif.deta.dev/coords/", {
-      //       lat: position.coords.latitude,
-      //       lng: position.coords.longitude,
-      //     });
-
-      //     allParas[0].innerHTML += "<br>" + data[allParas[0].id] + " miles";
-      //     allParas[1].innerHTML += "<br>" + data[allParas[1].id] + " miles";
-      //     allParas[2].innerHTML += "<br>" + data[allParas[2].id] + " miles";
-      //     allParas[3].innerHTML += "<br>" + data[allParas[3].id] + " miles";
-      //     allParas[4].innerHTML += "<br>" + data[allParas[4].id] + " miles";
-      //     allParas[5].innerHTML += "<br>" + data[allParas[5].id] + " miles";
-      //     allParas[6].innerHTML += "<br>" + data[allParas[6].id] + " miles";
-      //   }
-
-      //   function showError(error) {
-      //     switch (error.code) {
-      //       case error.PERMISSION_DENIED:
-      //         newP = document.createElement("p");
-      //         newP.innerHTML = "User denied the request for geolocation.";
-      //         distance.append(newP);
-      //         break;
-      //       case error.POSITION_UNAVAILABLE:
-      //         newP = document.createElement("p");
-      //         newP.innerHTML = "Location information is unavailable.";
-      //         distance.append(newP);
-      //         break;
-      //       case error.TIMEOUT:
-      //         newP = document.createElement("p");
-      //         newP.innerHTML = "The request to get user location timed out.";
-      //         distance.append(newP);
-      //         break;
-      //     }
-      //   }
     </script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
